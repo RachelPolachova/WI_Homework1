@@ -15,16 +15,44 @@ let students = [
 //read
 router.get('/',(req, res) => res.send(students));
 
+router.get('/:userId', (req, res) => {
+
+	foundUser = false
+
+    for (i in students) {
+        if (students[i].id == req.params.userId) {
+			foundUser = true;
+			res.send(students[i]);
+        };
+    };
+
+	if (!foundUser) {
+		res.send('No user with id ' + req.params.userId);
+	}
+
+});
+
 //write
 router.post('/', (req, res) => {
+
+	idAlreadyExists = false;
 
 	//read data from req
 	console.log(req.body);
 	
+    for (i in students) {
+        if (students[i].id == req.query.id) {
+			idAlreadyExists = true;
+		}
+	}
 
-	//append user data to users array
-	students.push(req.body);
-	res.send('OK');
+    if (idAlreadyExists) {
+		res.send('Student with this ID already exists.')
+    } else {
+		//append user data to users array
+		students.push(req.body);
+		res.send('OK');
+    }
 
 });
 
