@@ -48,7 +48,7 @@ router.post('/',(req, res) => {
 });
 
 //delete
-router.delete(':courseId',(req, res) => {
+router.delete('/:courseId',(req, res) => {
 
 	let foundedCourse = alreadyExists(req.params.courseId);
 
@@ -56,7 +56,7 @@ router.delete(':courseId',(req, res) => {
 		let filtered = courses.filter(function(course) {
 			return course.id != req.params.courseId;
 		});
-		courses = fitered;
+		courses = filtered;
 		res.send('Course deleted.');
 	} else {
 		res.send('No course with id ' + req.params.courseId);
