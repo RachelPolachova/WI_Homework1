@@ -61,7 +61,7 @@ router.delete('/:studentId',(req,res) => {
 		res.send('Student deleted.');
 
 	} else {
-		res.send('No student with id ' + req.params.userId);
+		res.send('No student with id ' + id);
 	}
 
 });

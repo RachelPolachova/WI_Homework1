@@ -53,23 +53,6 @@ router.post('/', (req,res) => {
 	let studentHasGrade = false;
 
 	if (courseExists) {
-		// let existingStudentsIDs = getStudentIds(grades[index].students);
-		// let newStudentsIDs = getStudentIds(req.body.students);
-		//
-		// for (i in newStudentsIDs) {
-		// 	for (j in existingStudentsIDs) {
-		// 		if (newStudentsIDs[i] == existingStudentsIDs[j]) {
-		// 			studentHasGrade = true
-		// 			// console.log('student has grade.' + i + j);
-		// 		}
-		// 	}
-		// 	if (!studentHasGrade) {
-		// 		// console.log('student' + newStudentsIDs[i] + 'doesnt have grade yet.')
-		// 		grades[index].students.push(req.body.students[i]);
-		// 	}
-		// 	studentHasGrade = false;
-		// }
-		// res.send('Grades added.');
 		res.send('Course already exists.');
 	} else {
 		grades.push(req.body);
@@ -130,21 +113,25 @@ router.put('/:courseId', (req,res) => {
 	if (courseExists) {
 		let existingStudentsIDs = getStudentIds(grades[index].students);
 		let newStudentsIDs = getStudentIds(req.body.students);
+		let responseMessage = "";
 
 		for (i in newStudentsIDs) {
 			for (j in existingStudentsIDs) {
 				if (newStudentsIDs[i] == existingStudentsIDs[j]) {
 					grades[index].students[j].grade = req.body.students[i].grade;
 					studentHasGrade = true
-					res.send('Grade updated.');
+					responseMessage += "Student " + grades[index].students[j].studentId + " updated.";
+					// res.send('Grade updated.');
 				}
 			}
 			if (!studentHasGrade) {
 				grades[index].students.push(req.body.students[i]);
-				res.send('Student added.');
+				responseMessage += "Student " + req.body.students[i].studentId + " added.";
+				// res.send('Student added.');
 			}
 			studentHasGrade = false;
 		}
+		res.send(responseMessage);
 	} else {
 		res.send('Course does not exist.');
 	}
