@@ -121,13 +121,11 @@ router.put('/:courseId', (req,res) => {
 					grades[index].students[j].grade = req.body.students[i].grade;
 					studentHasGrade = true
 					responseMessage += "Student " + grades[index].students[j].studentId + " updated.";
-					// res.send('Grade updated.');
 				}
 			}
 			if (!studentHasGrade) {
 				grades[index].students.push(req.body.students[i]);
 				responseMessage += "Student " + req.body.students[i].studentId + " added.";
-				// res.send('Student added.');
 			}
 			studentHasGrade = false;
 		}
@@ -184,5 +182,3 @@ function getStudentIndex(id, students) {
 }
 
 module.exports = router;
-
-//JSON in JSON?

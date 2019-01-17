@@ -30,7 +30,6 @@ router.get('/:studentId', (req, res) => {
 });
 
 //write
-//sending id via JSON not via url in postman, so I have to use req.body.id not params
 router.post('/', (req, res) => {
 
 	let id = req.body.id;
